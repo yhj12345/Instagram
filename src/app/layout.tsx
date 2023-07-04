@@ -1,3 +1,4 @@
+import AuthContext from "@/context/AuthContext";
 import Header from "../components/Header";
 import "./globals.css";
 import { Open_Sans } from "next/font/google";
@@ -17,9 +18,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={openSans.className}>
       <body className="max-w-screen-lg mx-auto">
-        <Header />
-        <hr />
-        {children}
+        <AuthContext>
+          <Header />
+          <hr />
+          {children}
+        </AuthContext>
       </body>
     </html>
   );
