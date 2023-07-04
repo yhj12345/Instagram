@@ -1,7 +1,7 @@
 import React from "react";
 
-const PlusPage = () => {
+const NewPostPage = () => {
   return <div>플러스 페이지</div>;
 };
 
-export default PlusPage;
+export default NewPostPage;
