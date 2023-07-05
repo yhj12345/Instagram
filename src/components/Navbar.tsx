@@ -1,5 +1,4 @@
 "use client";
-import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
@@ -11,6 +10,7 @@ import SearchFillIcon from "./ui/icons/SearchFillIcon";
 import NewIcon from "./ui/icons/NewIcon";
 import NewFillIcon from "./ui/icons/NewFillIcon";
 import ColorButton from "./ui/ColorButton";
+import Avatar from "./Avatar";
 
 const menu = [
   {
@@ -30,9 +30,12 @@ const menu = [
   },
 ];
 
+const BASE_URL = "http://localhost:3000/";
+
 const Navbar = () => {
   const pathname = usePathname();
   const { data: session } = useSession();
+  const user = session?.user;
 
   return (
     <section className="flex justify-between items-center px-6">
@@ -48,11 +51,20 @@ const Navbar = () => {
               </Link>
             </li>
           ))}
-          {session ? (
-            <ColorButton text="Sign in" onClick={() => {}} />
-          ) : (
-            <ColorButton text="Sign out" onClick={() => {}} />
+          {user && (
+            <li>
+              <Link href={`/user/${user.username}`}>
+                <Avatar image={user.image} />
+              </Link>
+            </li>
           )}
+          <li>
+            {session ? (
+              <ColorButton text="Sign out" onClick={() => signOut()} />
+            ) : (
+              <ColorButton text="Sign in" onClick={() => signIn()} />
+            )}
+          </li>
         </ul>
       </nav>
     </section>
